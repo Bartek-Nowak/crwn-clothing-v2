@@ -1,18 +1,25 @@
-import { useState, useEffect } from "react";
-import CategoriesList from "./components/category-list/CategoryList.component";
+import { Routes, Route, Outlet } from "react-router-dom";
+import Home from "./routes/home/Home.component";
+import Shop from "./routes/shop/Shop.component";
+
+const Nav = () => {
+  return (
+    <div>
+      <h1>I'm navbar</h1>
+      <Outlet />
+    </div>
+  );
+};
 
 const App = () => {
 
-  const [categories,setCategories] = useState([]) 
-
-  useEffect(() => {
-    fetch("http://localhost:8000/categories")
-    .then(response => response.json() )
-    .then(categories => setCategories(categories) )
-  },[])
-
   return (
-    <CategoriesList categories={categories} />
+    <Routes>
+      <Route path="/" element={<Nav />}>
+        <Route index element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
+      </Route>
+    </Routes>
   );
 };
 
