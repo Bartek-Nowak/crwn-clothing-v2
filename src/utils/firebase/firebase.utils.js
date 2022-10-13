@@ -4,7 +4,7 @@ import {
   getAuth,
   signInWithRedirect,
   signInWithPopup,
-  GoogleAuthProvider,
+  GoogleAuthProvider
 } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
@@ -20,14 +20,21 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider(); 
+/* Tworzy nam dostawcę logowania. W tym przypadku od Googla. 
+W ten sposób możemy łatwo stworzyć dla inncy dostawców.
+Dodajać do importu z firebase/auth FacebookAuthProvider. Otrzymamy dostawcę dla Facebooka.
+const facebookProvider = new FacebookAuthProvider();
+*/
 
-provider.setCustomParameters({
+googleProvider.setCustomParameters({ // ten element jest wymuszony przez dokumentację google firebase
   prompt: "select_account",
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider); //różne metody logowania. Ta jest przez popup
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider); // Ta jest przez przekierowanie
+//koniec sekcji logowania
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth) => {
