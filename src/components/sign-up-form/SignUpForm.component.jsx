@@ -12,8 +12,8 @@ const SignUpForm = () => {
   const { displayName, email, password, confirmPassword } = formFilds;
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setFormFilds({...formFilds, [name]: value})
+    const { name, value } = e.target;
+    setFormFilds({ ...formFilds, [name]: value });
   };
 
   return (
